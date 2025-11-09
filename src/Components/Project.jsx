@@ -1,5 +1,33 @@
 import React, { useState } from "react";
 
+// Assuming ProjectDetails component is defined/imported somewhere else
+const ProjectDetails = ({
+  title,
+  description,
+  subDescription,
+  image,
+  tags,
+  href,
+  closeModal,
+}) => {
+  return (
+    <div className="modal">
+      <button onClick={closeModal}>Close</button>
+      <h2>{title}</h2>
+      <p>{description}</p>
+      <p>{subDescription}</p>
+      {image && <img src={image} alt={title} />}
+      <div>
+        {tags.map((tag) => (
+          <span key={tag.id}>{tag.name}</span>
+        ))}
+      </div>
+      <a href={href} target="_blank" rel="noopener noreferrer">
+        Visit Website
+      </a>
+    </div>
+  );
+};
 
 const Project = ({
   title,
@@ -11,6 +39,7 @@ const Project = ({
   setPreview,
 }) => {
   const [isHidden, setIsHidden] = useState(false);
+
   return (
     <>
       <div
@@ -30,8 +59,11 @@ const Project = ({
           onClick={() => setIsHidden(true)}
           className="flex items-center gap-1 cursor-pointer hover-animation"
         >
-          <a href="https://swiggy-clone-seven-peach.vercel.app/">Go to Web</a>
-          <img src="assets/arrow-right.svg" className="w-5" />
+          {/* Use dynamic href here */}
+          <a href={href} target="_parent" rel="noopener noreferrer">
+            Go to Web
+          </a>
+          <img src="assets/arrow-right.svg" className="w-5" alt="arrow" />
         </button>
       </div>
       <div className="bg-gradient-to-r from-transparent via-neutral-700 to-transparent h-[1px] w-full" />
