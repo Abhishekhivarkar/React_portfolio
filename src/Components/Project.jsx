@@ -63,21 +63,11 @@ const Project = ({
           <a href={href} target="_parent" rel="noopener noreferrer">
             Go to Web
           </a>
-          <img src="assets/arrow-right.svg" className="w-5" alt="arrow" />
+          <img src="/assets/arrow-right.svg" className="w-5" alt="arrow" />
         </button>
       </div>
       <div className="bg-gradient-to-r from-transparent via-neutral-700 to-transparent h-[1px] w-full" />
-      {isHidden && (
-        <ProjectDetails
-          title={title}
-          description={description}
-          subDescription={subDescription}
-          image={image}
-          tags={tags}
-          href={href}
-          closeModal={() => setIsHidden(false)}
-        />
-      )}
+      
     </>
   );
 };
