@@ -1,15 +1,8 @@
 export const myProjects = [
   {
-    id: 1,
-    title: "E-commerce Platform",
-    description:
-      "Facilitates purchases from international websites like Amazon and eBay, allowing customers to shop from these sites and have products delivered domestically.",
-    subDescription: [
-      "Built a scalable application with ASP.NET Core MVC, integrating global platforms like Amazon for domestic delivery.",
-      "Implemented secure authentication and database management using ASP.NET Core Identity and Entity Framework Core.",
-      "Designed a responsive frontend with Tailwind CSS, enhancing user experience.",
-      "Added payment systems, localization, and product filtering for functionality improvements.",
-    ],
+    id: 3,
+    title: "Swiggy-clone",
+   
     href: "https://swiggy-clone-seven-peach.vercel.app/",
     logo: "",
     image: "/assets/projects/swiggy.png",
@@ -38,17 +31,40 @@ export const myProjects = [
   },{
     id: 2,
     title: "live chat App",
-    description:
-      "Facilitates purchases from international websites like Amazon and eBay, allowing customers to shop from these sites and have products delivered domestically.",
-    subDescription: [
-      "Built a scalable application with ASP.NET Core MVC, integrating global platforms like Amazon for domestic delivery.",
-      "Implemented secure authentication and database management using ASP.NET Core Identity and Entity Framework Core.",
-      "Designed a responsive frontend with Tailwind CSS, enhancing user experience.",
-      "Added payment systems, localization, and product filtering for functionality improvements.",
-    ],
+   
     href: "https://chat-app-react-blond.vercel.app/",
     logo: "",
     image: "/assets/projects/chat_app.png",
+    tags: [
+      {
+        id: 1,
+        name: "React",
+        path: "/assets/logos/csharp.svg",
+      },
+      {
+        id: 2,
+        name: "Express",
+        path: "/assets/logos/dotnet.svg",
+      },
+      {
+        id: 3,
+        name: "MongoDB",
+        path: "/assets/logos/efcore.png",
+      },
+      {
+        id: 4,
+        name: "TailwindCSS",
+        path: "/assets/logos/tailwindcss.svg",
+      },
+    ],
+  },
+  ,{
+    id: 1,
+    title: "E-commerce Platform",
+   
+    href: "https://e-commerce-react-six-mauve.vercel.app/",
+    logo: "",
+    image: "/assets/projects/E-commerce.png",
     tags: [
       {
         id: 1,
