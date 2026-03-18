@@ -112,4 +112,4 @@ useFrame(()=>{
 export default Astronaut
 
 // Preload the model for performance (optional)
-useGLTF.preload('/tenhun_falling_spaceman_fanart.glb')
+useGLTF.preload('/models/tenhun_falling_spaceman_fanart.glb')

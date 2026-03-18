@@ -124,10 +124,7 @@ export const getAllProjectsService =async () =>{
  try{
   const project = await ProjectModel.find()
   
-  if(project.length === 0){
-   throw new Error("0 project's found")
-  }
-  
+
   return project
  }catch(err){
   throw(err)

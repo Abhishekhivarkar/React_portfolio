@@ -33,11 +33,11 @@ router.post(
  validate(createProjectValidator),
  createProject
 )
- 
- router.put(
- "/update/:projectId",
- validate(projectIdValidator,"params"),
- validate(updateProjectValidator),
+
+router.put(
+"/update/:projectId",
+validate(projectIdValidator,"params"),
+validate(updateProjectValidator),
  upload.fields([
   {name:"thumbnail",maxCount:1},
   {name:"gallery"}

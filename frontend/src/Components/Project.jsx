@@ -1,75 +1,81 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { usePortfolio } from "../features/portfolio/hooks/usePortfolio";
+import { useNavigate } from "react-router-dom";
 
-// Assuming ProjectDetails component is defined/imported somewhere else
-const ProjectDetails = ({
-  title,
-  description,
-  subDescription,
-  image,
-  tags,
-  href,
-  closeModal,
-}) => {
-  return (
-    <div className="modal">
-      <button onClick={closeModal}>Close</button>
-      <h2>{title}</h2>
-      <p>{description}</p>
-      <p>{subDescription}</p>
-      {image && <img src={image} alt={title} />}
-      <div>
-        {tags.map((tag) => (
-          <span key={tag.id}>{tag.name}</span>
-        ))}
-      </div>
-      <a href={href} target="_blank" rel="noopener noreferrer">
-        Visit Website
-      </a>
-    </div>
-  );
-};
-
-const Project = ({
-  title,
-  description,
-  subDescription,
-  href,
-  image,
-  tags,
-  setPreview,
-}) => {
-  const [isHidden, setIsHidden] = useState(false);
+const Project = ({ project, setPreview }) => {
+  const navigate = useNavigate();
 
   return (
     <>
       <div
         className="flex-wrap items-center justify-between py-10 space-y-14 sm:flex sm:space-y-0"
-        onMouseEnter={() => setPreview(image)}
+        onMouseEnter={() => setPreview(project.thumbnail)}
         onMouseLeave={() => setPreview(null)}
       >
         <div>
-          <p className="text-2xl">{title}</p>
+          <p className="text-2xl">{project.name}</p>
           <div className="flex gap-5 mt-2 text-sand">
-            {tags.map((tag) => (
-              <span key={tag.id}>{tag.name}</span>
+            {project.techStack?.map((tag, index) => (
+              <span key={index}>{tag}</span>
             ))}
           </div>
         </div>
+
+        {/* More Details button */}
         <button
-          onClick={() => setIsHidden(true)}
+          onClick={() => navigate(`/project/${project._id}`)}
           className="flex items-center gap-1 cursor-pointer hover-animation"
         >
-          {/* Use dynamic href here */}
-          <a href={href} target="_parent" rel="noopener noreferrer">
-            Go to Web
-          </a>
+          More Details
           <img src="/assets/arrow-right.svg" className="w-5" alt="arrow" />
         </button>
       </div>
+
       <div className="bg-gradient-to-r from-transparent via-neutral-700 to-transparent h-[1px] w-full" />
-      
     </>
   );
 };
 
-export default Project;
+const ProjectsList = () => {
+  const { handleGetAllProjects, projects, loading } = usePortfolio();
+  const [preview, setPreview] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    handleGetAllProjects();
+  }, []);
+
+  // Filter only featured projects & limit to 3
+  const featuredProjects = projects.filter((p) => p.featured).slice(0, 3);
+
+  if (loading) return <p>Loading projects...</p>;
+
+  return (
+    <section>
+      <h1 className="text-3xl font-bold mb-8">My Selected Projects</h1>
+
+      {featuredProjects.map((project) => (
+        <Project key={project._id} project={project} setPreview={setPreview} />
+      ))}
+
+      {preview && (
+        <div className="fixed top-10 right-10 w-48 h-48 border border-gray-600">
+          <img
+            src={preview}
+            alt="Preview"
+            className="w-full h-full object-cover preview-image"
+          />
+        </div>
+      )}
+
+      <button
+        onClick={() => navigate("/projects")} // Navigate to all projects page
+        className="mt-8 px-6 py-2 bg-sky-600 text-white rounded hover:bg-sky-700"
+      >
+        Show More
+      </button>
+    </section>
+  );
+};
+
+export default ProjectsList;
