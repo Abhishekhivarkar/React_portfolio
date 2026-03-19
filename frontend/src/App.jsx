@@ -1,22 +1,10 @@
-import Navbar from "./Sections/Navbar"
-import Hero from "./Sections/Hero"
-import Projects from "./Sections/Projects"
-import Contact from "./Sections/Contact"
-import Footer from "./Sections/Footer"
-import { PortfolioProvider } from "./features/portfolio/portfolio.context"
+
+import Home from "./Components/Home"
 
 const App = () => {
   return (
-    <PortfolioProvider>
-      <div className="container mx-auto mx-w-7xl ">
-        <Navbar />
-        <Hero />
-        <Projects />
-        <Contact />
-        <Footer />
-      </div>
-    </PortfolioProvider>
+    <div className="container mx-auto mx-w-7xl ">
+      <Home/>
+    </div>
   )
 }
-
-export default App

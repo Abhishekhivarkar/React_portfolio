@@ -5,34 +5,44 @@ import { useNavigate } from "react-router-dom";
 const Project = ({ project, setPreview }) => {
   const navigate = useNavigate();
 
+  const techStack = JSON.parse(project.techStack?.[0] || "[]");
+
   return (
-    <>
-      <div
-        className="flex-wrap items-center justify-between py-10 space-y-14 sm:flex sm:space-y-0"
-        onMouseEnter={() => setPreview(project.thumbnail)}
-        onMouseLeave={() => setPreview(null)}
-      >
-        <div>
-          <p className="text-2xl">{project.name}</p>
-          <div className="flex gap-5 mt-2 text-sand">
-            {project.techStack?.map((tag, index) => (
-              <span key={index}>{tag}</span>
-            ))}
-          </div>
+    <div
+      className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 rounded-xl border border-neutral-800 hover:border-sky-500 transition duration-300 bg-neutral-900/40 backdrop-blur-md hover:-translate-y-1"
+      onMouseEnter={() => setPreview?.(project.thumbnail)}
+      onMouseLeave={() => setPreview?.(null)}
+    >
+      {/* Left */}
+      <div className="max-w-xl">
+        <h2 className="text-2xl font-semibold text-white">{project.name}</h2>
+
+        {/* Tech stack */}
+        <div className="flex flex-wrap gap-2 mt-3">
+          {techStack.map((tag, index) => (
+            <span
+              key={index}
+              className="px-3 py-1 text-sm rounded-full bg-sky-900/40 text-sky-300 border border-sky-700"
+            >
+              {tag}
+            </span>
+          ))}
         </div>
 
-        {/* More Details button */}
-        <button
-          onClick={() => navigate(`/project/${project._id}`)}
-          className="flex items-center gap-1 cursor-pointer hover-animation"
-        >
-          More Details
-          <img src="/assets/arrow-right.svg" className="w-5" alt="arrow" />
-        </button>
+        {/* Description */}
+        <p className="text-neutral-400 mt-3">
+          {project.description?.slice(0, 100)}...
+        </p>
       </div>
 
-      <div className="bg-gradient-to-r from-transparent via-neutral-700 to-transparent h-[1px] w-full" />
-    </>
+      {/* Right */}
+      <button
+        onClick={() => navigate(`/project/${project._id}`)}
+        className="flex items-center gap-2 mt-4 sm:mt-0 text-sky-400 hover:text-sky-300 transition"
+      >
+        More Details →
+      </button>
+    </div>
   );
 };
 
@@ -45,35 +55,48 @@ const ProjectsList = () => {
     handleGetAllProjects();
   }, []);
 
-  // Filter only featured projects & limit to 3
   const featuredProjects = projects.filter((p) => p.featured).slice(0, 3);
 
   if (loading) return <p>Loading projects...</p>;
 
   return (
-    <section>
-      <h1 className="text-3xl font-bold mb-8">My Selected Projects</h1>
+    <section className="max-w-5xl mx-auto py-20">
 
-      {featuredProjects.map((project) => (
-        <Project key={project._id} project={project} setPreview={setPreview} />
-      ))}
+      <h1 className="text-4xl font-bold mb-12 text-white">
+        My Selected Projects
+      </h1>
 
+      <div className="space-y-6">
+        {featuredProjects.map((project) => (
+          <Project
+            key={project._id}
+            project={project}
+            setPreview={setPreview}
+          />
+        ))}
+      </div>
+
+      {/* Preview Image */}
       {preview && (
-        <div className="fixed top-10 right-10 w-48 h-48 border border-gray-600">
+        <div className="fixed top-24 right-10 w-60 h-60 border border-neutral-700 rounded-xl overflow-hidden shadow-xl">
           <img
             src={preview}
             alt="Preview"
-            className="w-full h-full object-cover preview-image"
+            className="w-full h-full object-cover"
           />
         </div>
       )}
 
-      <button
-        onClick={() => navigate("/projects")} // Navigate to all projects page
-        className="mt-8 px-6 py-2 bg-sky-600 text-white rounded hover:bg-sky-700"
-      >
-        Show More
-      </button>
+      {/* Show More Button */}
+      <div className="flex justify-center mt-12">
+        <button
+          onClick={() => navigate("/projects")}
+          className="px-8 py-3 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition"
+        >
+          Show More Projects
+        </button>
+      </div>
+
     </section>
   );
 };
