@@ -17,7 +17,7 @@ export const createProjectValidator = Joi.object({
   .required(),
 
  description: Joi.string()
-  .max(1000)
+  .max(5000)
   .allow("",null),
 
  techStack: Joi.alternatives().try(

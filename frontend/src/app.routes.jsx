@@ -6,20 +6,20 @@ import AdminProjects from "./Components/AdminProjects";
 
 export const router = createBrowserRouter([
 
-    {
-        path: "/",
-        element: <Home/>
-    },
+  {
+    path: "/",
+    element: <Home />
+  },
   {
     path: "/projects",
     element: <AllProjects />
   },
   {
-  path: "/project/:projectId",
-  element: <ProjectDetails />
-},
-{
-  path: "/admin/projects",
-  element: <AdminProjects />
-}
+    path: "/project/:projectId",
+    element: <ProjectDetails />
+  },
+  {
+    path: "/admin/projects",
+    element: <AdminProjects />
+  }
 ]);

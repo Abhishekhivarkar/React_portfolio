@@ -8,10 +8,10 @@ export const usePortfolio = () => {
   const { loading, setLoading, project, setProject, projects, setProjects } = context;
   const { projectId } = useParams();
 
-  const handleCreateProject = async ({ name, category, techStack, githubLinks, deployedLinks, description, featured, status }) => {
+  const handleCreateProject = async ({name,category,techStack,githubLinks,deployedLinks,description,featured,status,thumbnail,gallery}) => {
     try {
       setLoading(true);
-      const data = await createProject({ name, category, techStack, githubLinks, deployedLinks, description, featured, status });
+      const data = await createProject({name,category,techStack,githubLinks,deployedLinks,description,featured,status,thumbnail,gallery});
 
       if (data && data.data) {  
         setProject(data.data);
@@ -24,10 +24,10 @@ export const usePortfolio = () => {
     }
   };
 
-  const handleUpdateProject = async ({ name, category, techStack, githubLinks, deployedLinks, description, featured, status, projectId }) => {
+  const handleUpdateProject = async ({name,category,techStack,githubLinks,deployedLinks,description,featured,status,thumbnail,gallery,projectId}) => {
     try {
       setLoading(true);
-      const data = await updateProject({ name, category, techStack, githubLinks, deployedLinks, description, featured, status, projectId });
+      const data = await updateProject({name,category,techStack,githubLinks,deployedLinks,description,featured,status,thumbnail,gallery,projectId});
 
       if (data && data.data) { 
         setProject(data.data);

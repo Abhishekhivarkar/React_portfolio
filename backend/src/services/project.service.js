@@ -23,17 +23,23 @@ export const createProjectService = async (data, files) =>{
 
   let gallery = []
 
-  if(files?.gallery){
-   for(const file of files.gallery){
+if(files?.gallery){
 
-    const uploadGallery = await uploadToCloudinary(
-     file,
-     "project/gallery"
-    )
+  gallery = await Promise.all(
 
-    gallery.push(uploadGallery.secure_url)
-   }
-  }
+    files.gallery.map(async (file) => {
+
+      const uploadGallery = await uploadToCloudinary(
+        file,
+        "project/gallery"
+      )
+
+      return uploadGallery.secure_url
+    })
+
+  )
+
+}
 
   const createProject = await ProjectModel.create({
    name,
@@ -96,19 +102,24 @@ export const updateProjectService = async (params, file, body) =>{
 
   if(file?.gallery){
 
-   let gallery = []
+ const gallery = await Promise.all(
 
-   for(const files of file.gallery){
-    const uploadGallery = await uploadToCloudinary(
-     files,
-     "project/gallery"
-    )
+  file.gallery.map(async (img)=>{
 
-    gallery.push(uploadGallery.secure_url)
-   }
+   const uploadGallery = await uploadToCloudinary(
+    img,
+    "project/gallery"
+   )
 
-   isExists.gallery = gallery
-  }
+   return uploadGallery.secure_url
+
+  })
+
+ )
+
+ isExists.gallery = gallery
+
+}
 
   await isExists.save()
 

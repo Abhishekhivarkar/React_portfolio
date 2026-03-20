@@ -4,11 +4,40 @@ const api = axios.create({
     withCredentials:true
 })
 
-export const createProject =async ({name,category,techStack,githubLinks,deployedLinks,description,featured,status}) =>{
+export const createProject =async ({name,category,techStack,githubLinks,deployedLinks,description,featured,status,thumbnail,gallery}) =>{
     try{
-        const response =await api.post("/api/project/upload",{
-            name,category,techStack,githubLinks,deployedLinks,description,featured,status
+        const formData =new FormData()
+
+        formData.append("name",name)
+        formData.append("description",description)
+        formData.append("category",category)
+        formData.append("featured",featured)
+        formData.append("status",status)
+        formData.append("thumbnail",thumbnail)
+        techStack.forEach(tech=>{
+            formData.append("techStack",tech)
         })
+        githubLinks.forEach(links=>{
+            formData.append("githubLinks",links)
+        })
+        deployedLinks.forEach(links=>{
+            formData.append("deployedLinks",links)
+        })
+
+        if(gallery){
+            for(let img of gallery){
+                formData.append("gallery",img)
+            }
+        }
+
+        const response = await api.post("/api/project/upload",
+            formData,
+            {
+                headers:{
+                    "Content-Type":"multipart/form-data"
+                }
+            }
+        )
 
         return response.data
     }catch(err){
@@ -18,11 +47,45 @@ export const createProject =async ({name,category,techStack,githubLinks,deployed
 }
 
 
-export const updateProject =async ({name,category,techStack,githubLinks,deployedLinks,description,featured,status,projectId}) =>{
+export const updateProject =async ({name,category,techStack,githubLinks,deployedLinks,description,featured,status,thumbnail,gallery,projectId}) =>{
     try{
-        const response =await api.put(`/api/project/update/${projectId}`,{name,category,techStack,githubLinks,deployedLinks,description,featured,status,projectId})
+       const formData =new FormData()
 
-        return response.data
+       formData.append("name",name)
+       formData.append("description",description)
+       formData.append("featured",featured)
+       formData.append("thumbnail",thumbnail)
+       formData.append("category",category)
+       formData.append("status",status)
+
+       techStack.forEach(tech=>{
+        formData.append("techStack",tech)
+       })
+
+       githubLinks.forEach(links=>{
+        formData.append("githubLinks",links)
+       })
+
+       deployedLinks.forEach(links=>{
+        formData.append("deployedLinks",links)
+       })
+
+       if(gallery){
+        for(let img of gallery){
+            formData.append("gallery",img)
+        }
+       }
+
+       const response = await api.put(`/api/project/update/${projectId}`,
+        formData,
+        {
+            headers:{
+                "Content-Type":"multipart/form-data"
+            }
+        }
+       )
+
+       return response.data
     }catch(err){
         console.log(err.response?.data?.message)
         return null
