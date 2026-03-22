@@ -7,9 +7,12 @@ const app = express()
 
 app.use(express.json())
 app.use(cors({
-    origin:config.CLIENT_URL,
-    credentials:true
-}))
+  origin: [
+    "http://localhost:5173",
+    "https://react-portfolio-theta-roan.vercel.app"
+  ],
+  credentials: true
+}));
 
 app.use("/api/project", projectRoutes)
 app.use("/api/contact", contactRoutes)
