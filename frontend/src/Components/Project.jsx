@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { usePortfolio } from "../features/portfolio/hooks/usePortfolio";
 import { useNavigate } from "react-router-dom";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useRef } from "react";
 
 const Project = ({ project, setPreview }) => {
   const navigate = useNavigate();
-  const techStack = project.techStack || [];
+  const techStack = project?.techStack || [];
 
   return (
     <div
@@ -15,7 +16,7 @@ const Project = ({ project, setPreview }) => {
       onClick={() => navigate(`/project/${project._id}`)}
     >
       <div className="max-w-xl">
-        <h2 className="text-2xl font-semibold text-white">{project.name}</h2>
+        <h2 className="text-2xl font-semibold text-white">{project?.name}</h2>
 
         <div className="flex flex-wrap gap-2 mt-3">
           {techStack.map((tag, index) => (
@@ -29,7 +30,7 @@ const Project = ({ project, setPreview }) => {
         </div>
 
         <p className="text-neutral-400 mt-3">
-          {project.description?.slice(0, 100)}...
+          {project?.description?.slice(0, 100)}...
         </p>
       </div>
 
@@ -42,6 +43,7 @@ const Project = ({ project, setPreview }) => {
       >
         More Details →
       </button>
+      
     </div>
   );
 };
@@ -58,12 +60,14 @@ const ProjectsList = ({ showMoreButton = true }) => {
   const springX = useSpring(cursorX, { damping: 25, stiffness: 250 });
   const springY = useSpring(cursorY, { damping: 25, stiffness: 250 });
 
-  useEffect(() => {
-    if (projects.length === 0) {
-      handleGetAllProjects();
-    }
-  }, []);
+const fetched = useRef(false);
 
+useEffect(() => {
+  if (!fetched.current) {
+    handleGetAllProjects();
+    fetched.current = true;
+  }
+}, []);
   // cursor tracking
   useEffect(() => {
 
@@ -126,4 +130,5 @@ const ProjectsList = ({ showMoreButton = true }) => {
   );
 };
 
-export default ProjectsList;
+export { ProjectsList };
+export default Project;

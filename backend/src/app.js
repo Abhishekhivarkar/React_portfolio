@@ -2,11 +2,12 @@ import express from "express"
 import cors from "cors"
 import projectRoutes from "./routes/project.routes.js"
 import contactRoutes from "./routes/contact.routes.js"
+import { config } from "dotenv"
 const app = express()
 
 app.use(express.json())
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin:config.CLIENT_URL,
     credentials:true
 }))
 

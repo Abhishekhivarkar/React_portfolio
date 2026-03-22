@@ -1,8 +1,7 @@
-import ProjectsList from "./Project.jsx";
+import { ProjectsList } from "./Project.jsx";
 import { Particles } from "./Particles";
 
 const AllProjects = () => {
-
   return (
     <div className="relative min-h-screen bg-[#020617]">
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Project from "../Components/Project";
 import { usePortfolio } from "../features/portfolio/hooks/usePortfolio";
 import { motion, useMotionValue, useSpring } from "framer-motion"; // "motion/react" ki jagah "framer-motion"
+import { useRef } from "react";
 
 const Projects = () => {
   const { projects, handleGetAllProjects, loading } = usePortfolio();
@@ -18,11 +19,14 @@ const Projects = () => {
   const [preview, setPreview] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  useEffect(() => {
-    if (projects.length === 0) {
-      handleGetAllProjects();
-    }
-  }, []);
+  const fetched = useRef(false);
+
+useEffect(() => {
+  if (!fetched.current) {
+    handleGetAllProjects();
+    fetched.current = true;
+  }
+}, []);
 
   // Cursor tracking with proper offset
   useEffect(() => {

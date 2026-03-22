@@ -14,6 +14,7 @@ import {
   FiSave,
   FiFolder
 } from "react-icons/fi";
+import { useRef } from "react";
 
 const AdminProjects = () => {
   const {
@@ -43,11 +44,14 @@ const AdminProjects = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (projects.length === 0) {
-      handleGetAllProjects();
-    }
-  }, []);
+ const fetched = useRef(false);
+
+useEffect(() => {
+  if (!fetched.current) {
+    handleGetAllProjects();
+    fetched.current = true;
+  }
+}, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
