@@ -32,21 +32,26 @@ const Contact = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const res = await handleCreateContact(formData);
+  if (formData.message.trim().length < 10) {
+    showAlertMessage("danger", "Message must be at least 10 characters long");
+    return;
+  }
 
-    if (res?.success) {
-      showAlertMessage("success", res.message);
-      setFormData({
-        fullName: "",
-        email: "",
-        message: ""
-      });
-    } else {
-      showAlertMessage("danger", "Something went wrong!");
-    }
-  };
+  const res = await handleCreateContact(formData);
+
+  if (res?.success) {
+    showAlertMessage("success", res.message);
+    setFormData({
+      fullName: "",
+      email: "",
+      message: ""
+    });
+  } else {
+    showAlertMessage("danger", "Something went wrong!");
+  }
+};
 
   return (
     <section className="relative flex items-center c-space">
@@ -99,15 +104,19 @@ const Contact = () => {
 
           <div className="mb-5">
             <label className="feild-label">Message</label>
-            <textarea
-              name="message"
-              rows="4"
-              value={formData.message}
-              onChange={handleChange}
-              className="field-input field-input-focus"
-              placeholder="Share your thoughts..."
-              required
-            />
+           <textarea
+  name="message"
+  rows="4"
+  value={formData.message}
+  onChange={handleChange}
+  className="field-input field-input-focus"
+  placeholder="Share your thoughts..."
+  required
+/>
+
+<p className="text-xs text-gray-400 mt-1">
+  {formData.message.length}/10 characters minimum
+</p>
           </div>
 
           <button
