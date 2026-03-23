@@ -82,7 +82,9 @@ useEffect(() => {
 
   }, []);
 
-  const featuredProjects = projects.filter(p => p.featured).slice(0,3);
+const displayedProjects = showMoreButton
+  ? projects.filter(p => p.featured).slice(0, 3)   
+  : projects;                                      
 
   if (loading) return <p className="text-white">Loading...</p>;
 
@@ -94,7 +96,7 @@ useEffect(() => {
       </h1>
 
       <div className="space-y-6">
-        {featuredProjects.map((project) => (
+        {displayedProjects.map((project) => (
           <Project
             key={project._id}
             project={project}
