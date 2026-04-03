@@ -3,7 +3,7 @@ import AllProjects from "./Components/AllProjects";
 import ProjectDetails from "./Components/ProjectDetails";
 import Home from "./Components/Home";
 import AdminProjects from "./Components/AdminProjects";
-
+import About from "./Components/About";
 export const router = createBrowserRouter([
 
   {
@@ -21,5 +21,9 @@ export const router = createBrowserRouter([
   {
     path: "/admin/projects",
     element: <AdminProjects />
+  },
+  {
+  path: "/about",
+  element: <About />
   }
 ]);
