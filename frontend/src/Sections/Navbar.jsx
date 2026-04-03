@@ -7,7 +7,7 @@ function Navigation(){
         <a href="/" className="nav-link">Home</a>
       </li>
        <li className="nav-li">
-        <a href="#about" className="nav-link">About</a>
+        <a href="/about" className="nav-link">About</a>
       </li>
      <li className="nav-li">
         <a href="/projects" className="nav-link">Work</a>
