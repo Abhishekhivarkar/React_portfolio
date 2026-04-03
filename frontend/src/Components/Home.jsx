@@ -1,21 +1,5 @@
-// import React from 'react'
-// import Navbar from '../Sections/Navbar'
-// import Hero from '../Sections/Hero'
-// import Projects from '../Sections/Projects'
-// import Contact from '../Sections/Contact'
-// import Footer from '../Sections/Footer'
-
-// export default function Home() {
-//   return (
-//    <>
-//     <Navbar/>
-//            <Hero />
-//            <Projects />
-//            <Contact />
-//            <Footer />
-//    </>
-//   )
-// }
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 import Navbar from "../Sections/Navbar";
 import Hero from "../Sections/Hero";
@@ -24,6 +8,23 @@ import Contact from "../Sections/Contact";
 import Footer from "../Sections/Footer";
 
 export default function Home() {
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(
+        location.hash.replace("#", "")
+      );
+
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth"
+        });
+      }
+    }
+  }, [location]);
+
   return (
     <>
       <Navbar />
