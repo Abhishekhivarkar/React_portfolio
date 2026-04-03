@@ -95,12 +95,12 @@ export const myProjects = [
 export const mySocials = [
   {
     name: "WhatsApp",
-    href: "",
+    href: "https://wa.me/qr/XMKCCMDG7WTQI1",
     icon: "/assets/socials/whatsApp.svg",
   },
   {
     name: "Linkedin",
-    href: "",
+    href: "https://www.linkedin.com/in/abhishek-hivarkar-297742351",
     icon: "/assets/socials/linkedIn.svg",
   },
   {
